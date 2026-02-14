@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=3 uid="uid://dad7bc4523ujr"]
+
+[ext_resource type="Script" uid="uid://dge8lhxk1ma4w" path="res://Scripts/ControllerHost.gd" id="1_qysdc"]
+[ext_resource type="Script" uid="uid://dtynu78iv8qao" path="res://Scripts/Player.gd" id="1_rjitc"]
+[ext_resource type="Script" uid="uid://c6crsterbybxf" path="res://Scripts/AsteroidSpawner.gd" id="2_qysdc"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qysdc"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_5ot4y"]
+sky_material = SubResource("ProceduralSkyMaterial_qysdc")
+
+[sub_resource type="Environment" id="Environment_3l1mj"]
+background_mode = 2
+sky = SubResource("Sky_5ot4y")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_m1txu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iee1x"]
+
+[node name="MainScene" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3l1mj")
+
+[node name="ControllerHost" type="Node" parent="."]
+script = ExtResource("1_qysdc")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+script = ExtResource("1_rjitc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+mesh = SubResource("BoxMesh_m1txu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("BoxShape3D_iee1x")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.7633678, 0.64596415, 0, -0.64596415, 0.7633678, 0, 6.224218, 5.5922136)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.017391205)
+
+[node name="AsteroidSpawner" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.008272717, 0.9999658, 0, -0.9999658, -0.008272717, 0, 0, -8.378998)
+script = ExtResource("2_qysdc")

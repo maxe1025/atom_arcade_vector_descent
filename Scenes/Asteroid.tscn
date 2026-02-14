@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://bt4iqrkraaa1u"]
+
+[ext_resource type="Script" uid="uid://ckmotelrikj7g" path="res://Scripts/Asteroid.gd" id="1_e0e3k"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_q160v"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e0e3k"]
+albedo_color = Color(0.3347436, 0.33474356, 0.33474356, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jnrf0"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_e0e3k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_q160v")
+surface_material_override/0 = SubResource("StandardMaterial3D_e0e3k")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_jnrf0")
