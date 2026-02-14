@@ -6,6 +6,7 @@ const SPEED := 10.0
 var fire_cooldown := 0.2
 var fire_timer := 0.0
 
+
 func _ready():
 	var controller_host = get_tree().get_current_scene().get_node("ControllerHost")
 
@@ -13,6 +14,7 @@ func _ready():
 		controller = controller_host.controller
 	else:
 		push_error("ControllerHost not found in the current scene!")
+
 
 func _physics_process(delta):
 	if controller:
@@ -40,6 +42,7 @@ func _physics_process(delta):
 	if controller and controller.get_buttons() == 1 and fire_timer <= 0:
 		fire()
 		fire_timer = fire_cooldown
+
 
 func fire():
 	var projectile = preload("res://Scenes/Projectile.tscn").instantiate()

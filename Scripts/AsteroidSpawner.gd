@@ -5,11 +5,13 @@ var spawn_range := 20
 var spawn_interval := 1.0
 var spawn_timer := 0.0
 
+
 func _physics_process(delta):
 	spawn_timer -= delta
 	if spawn_timer <= 0:
 		spawn_timer = spawn_interval
 		spawn_asteroid()
+
 
 func spawn_asteroid():
 	var asteroid = asteroid_scene.instantiate()
