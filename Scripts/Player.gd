@@ -7,7 +7,6 @@ var fire_cooldown := 0.2
 var fire_timer := 0.0
 
 func _ready():
-	# Suche ControllerHost im gesamten aktuellen Scene Tree
 	var controller_host = get_tree().get_current_scene().get_node("ControllerHost")
 
 	if controller_host:
@@ -34,8 +33,6 @@ func _physics_process(delta):
 		velocity.x = move_x * side_speed
 		velocity.z = move_z * forward_speed
 		velocity.y = 0
-		
-		#print(velocity.x)
 
 		move_and_slide()
 

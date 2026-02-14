@@ -9,7 +9,6 @@ func _ready():
 func _physics_process(delta):
 	global_translate(Vector3(0, 0, speed * delta))
 
-	# Entfernen wenn zu weit weg
 	if global_position.z < -50:
 		queue_free()
 

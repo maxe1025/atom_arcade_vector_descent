@@ -16,7 +16,7 @@ func spawn_asteroid():
 	asteroid.position = Vector3(
 		randf_range(-spawn_range, spawn_range),
 		0,
-		randf_range(10, 30) # vor dem Spieler
+		randf_range(10, 30)
 	)
 	asteroid.scale = Vector3.ONE * randf_range(0.5, 2.0)
 	get_parent().add_child(asteroid)

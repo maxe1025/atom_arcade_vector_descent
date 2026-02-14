@@ -4,7 +4,7 @@ var controller: Controller
 
 func _ready():
 	controller = Controller.new()
-	controller.start("COM3") # oder /dev/ttyACM0 auf Linux
+	controller.start("COM3") #/dev/ttyACM0 on Linux
 
 func _process(_delta: float) -> void:
 	if controller:
