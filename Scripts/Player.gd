@@ -1,11 +1,11 @@
 extends CharacterBody3D
 
 var controller: Controller
-const SPEED := 10.0
+const SPEED := 15.0
 
 const ACCELERATION := 20.0
 const DECELERATION := 15.0
-const TILT_ANGLE := 0.1
+const TILT_ANGLE := 0.05
 const TILT_SPEED := 5.0
 
 var fire_cooldown := 0.6
@@ -54,8 +54,8 @@ func _physics_process(delta):
 		velocity.y = 0
 
 		var target_tilt := Vector3.ZERO
-		target_tilt.z = -move_x * TILT_ANGLE
-		target_tilt.x = move_z * TILT_ANGLE
+		target_tilt.z = move_x * TILT_ANGLE
+		target_tilt.x = -move_z * TILT_ANGLE
 		
 		current_tilt = current_tilt.lerp(target_tilt, TILT_SPEED * delta)
 		
