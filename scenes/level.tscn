@@ -1,23 +1,20 @@
-[gd_scene load_steps=10 format=3 uid="uid://dad7bc4523ujr"]
+[gd_scene load_steps=11 format=3 uid="uid://dad7bc4523ujr"]
 
+[ext_resource type="Texture2D" uid="uid://c06kwc0lcjyfd" path="res://assets/2d/panorama_image.png" id="1_mx8sn"]
 [ext_resource type="Script" uid="uid://dge8lhxk1ma4w" path="res://scripts/ControllerHost.gd" id="1_w8frs"]
 [ext_resource type="Script" uid="uid://c6crsterbybxf" path="res://scripts/AsteroidSpawner.gd" id="3_ppgk2"]
 [ext_resource type="PackedScene" uid="uid://beym5n32offon" path="res://assets/3d/player/player.tscn" id="3_w8frs"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qysdc"]
-sky_top_color = Color(0.037964046, 0.055322856, 0.07844829, 1)
-sky_horizon_color = Color(0.71959907, 0.6012525, 0.915534, 1)
-sky_curve = 0.06091898
-ground_bottom_color = Color(0.03604518, 0.0064965803, 0.10175962, 1)
-ground_horizon_color = Color(0.7176471, 0.6, 0.9137255, 1)
-ground_curve = 0.07464259
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ppgk2"]
+panorama = ExtResource("1_mx8sn")
 
 [sub_resource type="Sky" id="Sky_5ot4y"]
-sky_material = SubResource("ProceduralSkyMaterial_qysdc")
+sky_material = SubResource("PanoramaSkyMaterial_ppgk2")
 
 [sub_resource type="Environment" id="Environment_3l1mj"]
 background_mode = 2
 sky = SubResource("Sky_5ot4y")
+sky_rotation = Vector3(0, 5.068436, 0)
 tonemap_mode = 2
 glow_enabled = true
 
