@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://dad7bc4523ujr"]
 
-[ext_resource type="Script" uid="uid://dge8lhxk1ma4w" path="res://Scripts/ControllerHost.gd" id="1_qysdc"]
-[ext_resource type="Script" uid="uid://dtynu78iv8qao" path="res://Scripts/Player.gd" id="1_rjitc"]
-[ext_resource type="Script" uid="uid://c6crsterbybxf" path="res://Scripts/AsteroidSpawner.gd" id="2_qysdc"]
+[ext_resource type="Script" uid="uid://dge8lhxk1ma4w" path="res://scripts/ControllerHost.gd" id="1_w8frs"]
+[ext_resource type="Script" uid="uid://dtynu78iv8qao" path="res://scripts/Player.gd" id="2_mx8sn"]
+[ext_resource type="Script" uid="uid://c6crsterbybxf" path="res://scripts/AsteroidSpawner.gd" id="3_ppgk2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qysdc"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -27,11 +27,11 @@ glow_enabled = true
 environment = SubResource("Environment_3l1mj")
 
 [node name="ControllerHost" type="Node" parent="."]
-script = ExtResource("1_qysdc")
+script = ExtResource("1_w8frs")
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
-script = ExtResource("1_rjitc")
+script = ExtResource("2_mx8sn")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
 mesh = SubResource("BoxMesh_m1txu")
@@ -47,4 +47,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.017391205)
 
 [node name="AsteroidSpawner" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.008272717, 0.9999658, 0, -0.9999658, -0.008272717, 0, 0, -8.378998)
-script = ExtResource("2_qysdc")
+script = ExtResource("3_ppgk2")

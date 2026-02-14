@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dj2ujh2ael4m2"]
 
-[ext_resource type="Script" uid="uid://klsm46nfc4nv" path="res://Scripts/Projectile.gd" id="1_lal66"]
+[ext_resource type="Script" uid="uid://klsm46nfc4nv" path="res://scripts/Projectile.gd" id="1_dprbf"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_8cioo"]
 
@@ -14,7 +14,7 @@ emission_energy_multiplier = 11.48
 size = Vector3(0.6953125, 0.09547424, 0.08129883)
 
 [node name="Projectile" type="Node3D"]
-script = ExtResource("1_lal66")
+script = ExtResource("1_dprbf")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(-3.022194e-08, 0, 0.08118355, 0, 0.09456688, 0, -0.6913974, 0, -3.5486458e-09, 0, 0, 0)

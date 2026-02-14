@@ -71,6 +71,6 @@ func _physics_process(delta):
 
 
 func fire():
-	var projectile = preload("res://Scenes/Projectile.tscn").instantiate()
+	var projectile = preload("res://assets/3d/player/projectile.tscn").instantiate()
 	get_tree().current_scene.add_child(projectile)
 	projectile.global_transform.origin = global_transform.origin - global_transform.basis.z

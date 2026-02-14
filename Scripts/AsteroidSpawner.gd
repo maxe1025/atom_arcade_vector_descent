@@ -1,6 +1,6 @@
 extends Node
 
-var asteroid_scene := preload("res://Scenes/Asteroid.tscn")
+var asteroid_scene := preload("res://assets/3d/asteroid/asteroid.tscn")
 var spawn_range := 20
 var spawn_interval := 1.0
 var spawn_timer := 0.0

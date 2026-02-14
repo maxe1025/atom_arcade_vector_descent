@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bt4iqrkraaa1u"]
 
-[ext_resource type="Script" uid="uid://ckmotelrikj7g" path="res://Scripts/Asteroid.gd" id="1_e0e3k"]
+[ext_resource type="Script" uid="uid://ckmotelrikj7g" path="res://scripts/Asteroid.gd" id="1_f35hr"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_q160v"]
 
@@ -10,7 +10,7 @@ albedo_color = Color(0.3347436, 0.33474356, 0.33474356, 1)
 [sub_resource type="SphereShape3D" id="SphereShape3D_jnrf0"]
 
 [node name="Node3D" type="Node3D"]
-script = ExtResource("1_e0e3k")
+script = ExtResource("1_f35hr")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_q160v")
