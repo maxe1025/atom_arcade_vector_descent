@@ -17,6 +17,7 @@ sky = SubResource("Sky_5ot4y")
 sky_rotation = Vector3(0, 5.068436, 0)
 tonemap_mode = 2
 glow_enabled = true
+adjustment_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w8frs"]
 albedo_color = Color(0.5455104, 0.115392245, 0.91621315, 1)
@@ -37,6 +38,8 @@ script = ExtResource("1_w8frs")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.59293747, 0.6933817, -0.40944713, -0.626765, -0.078163296, 0.775278, 0.5055598, 0.7163185, 0.4809336, 0, 0, -0.017391205)
+light_color = Color(0.98536056, 0.89774525, 0.9999997, 1)
+light_energy = 6.903
 
 [node name="AsteroidSpawner" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.008272717, 0.9999658, 0, -0.9999658, -0.008272717, 0, 0, -8.378998)
@@ -48,16 +51,16 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0
 [node name="Level" type="Node" parent="."]
 
 [node name="Planet" type="CSGSphere3D" parent="Level"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 94.712616, -18.305676, 180.80026)
+transform = Transform3D(8.947154, 0, 0, 0, 8.947154, 0, 0, 0, 8.947154, 303.6456, -708.5149, 1837.6731)
 radius = 6.699759
 material = SubResource("StandardMaterial3D_w8frs")
 
 [node name="Planet2" type="CSGSphere3D" parent="Level"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 187.87236, -84.4986, 141.19684)
+transform = Transform3D(8.947154, 0, 0, 0, 8.947154, 0, 0, 0, 8.947154, 1136.2218, -1471.2214, 1736.1718)
 radius = 16.666304
 material = SubResource("StandardMaterial3D_mx8sn")
 
 [node name="Planet3" type="CSGSphere3D" parent="Level"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 136.48686, -38.988274, 203.63599)
+transform = Transform3D(8.947154, 0, 0, 0, 8.947154, 0, 0, 0, 8.947154, 676.4678, -1064.0336, 2294.8245)
 radius = 33.31741
 material = SubResource("StandardMaterial3D_ppgk2")
