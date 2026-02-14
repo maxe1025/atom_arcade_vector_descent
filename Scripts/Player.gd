@@ -3,8 +3,16 @@ extends CharacterBody3D
 var controller: Controller
 const SPEED := 10.0
 
-var fire_cooldown := 0.2
+const ACCELERATION := 20.0
+const DECELERATION := 15.0
+const TILT_ANGLE := 0.1
+const TILT_SPEED := 5.0
+
+var fire_cooldown := 0.6
 var fire_timer := 0.0
+
+var target_velocity := Vector3.ZERO
+var current_tilt := Vector3.ZERO
 
 
 func _ready():
@@ -15,7 +23,7 @@ func _ready():
 	else:
 		push_error("ControllerHost not found in the current scene!")
 
-
+# Movement is implemented here
 func _physics_process(delta):
 	if controller:
 		var raw_x = controller.get_axis_x()
@@ -32,9 +40,27 @@ func _physics_process(delta):
 		var side_speed = SPEED
 		var forward_speed = SPEED * 0.3
 
-		velocity.x = move_x * side_speed
-		velocity.z = move_z * forward_speed
+		target_velocity.x = move_x * side_speed
+		target_velocity.z = move_z * forward_speed
+		target_velocity.y = 0
+
+		if target_velocity.length() > 0:
+			velocity.x = move_toward(velocity.x, target_velocity.x, ACCELERATION * delta)
+			velocity.z = move_toward(velocity.z, target_velocity.z, ACCELERATION * delta)
+		else:
+			velocity.x = move_toward(velocity.x, 0, DECELERATION * delta)
+			velocity.z = move_toward(velocity.z, 0, DECELERATION * delta)
+		
 		velocity.y = 0
+
+		var target_tilt := Vector3.ZERO
+		target_tilt.z = -move_x * TILT_ANGLE
+		target_tilt.x = move_z * TILT_ANGLE
+		
+		current_tilt = current_tilt.lerp(target_tilt, TILT_SPEED * delta)
+		
+		rotation.x = current_tilt.x
+		rotation.z = current_tilt.z
 
 		move_and_slide()
 
