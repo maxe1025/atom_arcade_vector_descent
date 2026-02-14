@@ -13,11 +13,16 @@ sky_material = SubResource("PanoramaSkyMaterial_ppgk2")
 
 [sub_resource type="Environment" id="Environment_3l1mj"]
 background_mode = 2
+background_energy_multiplier = 0.8
 sky = SubResource("Sky_5ot4y")
 sky_rotation = Vector3(0, 5.068436, 0)
 tonemap_mode = 2
 glow_enabled = true
+glow_bloom = 0.3
 adjustment_enabled = true
+adjustment_brightness = 1.5
+adjustment_contrast = 1.05
+adjustment_saturation = 1.86
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w8frs"]
 albedo_color = Color(0.5455104, 0.115392245, 0.91621315, 1)
@@ -51,16 +56,16 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0
 [node name="Level" type="Node" parent="."]
 
 [node name="Planet" type="CSGSphere3D" parent="Level"]
-transform = Transform3D(8.947154, 0, 0, 0, 8.947154, 0, 0, 0, 8.947154, 303.6456, -708.5149, 1837.6731)
+transform = Transform3D(8.947154, 0, 0, 0, 8.947154, 0, 0, 0, 8.947154, 1252.8533, -708.5149, 1837.6731)
 radius = 6.699759
 material = SubResource("StandardMaterial3D_w8frs")
 
 [node name="Planet2" type="CSGSphere3D" parent="Level"]
-transform = Transform3D(8.947154, 0, 0, 0, 8.947154, 0, 0, 0, 8.947154, 1136.2218, -1471.2214, 1736.1718)
+transform = Transform3D(8.947154, 0, 0, 0, 8.947154, 0, 0, 0, 8.947154, 2085.4294, -1471.2214, 1736.1718)
 radius = 16.666304
 material = SubResource("StandardMaterial3D_mx8sn")
 
 [node name="Planet3" type="CSGSphere3D" parent="Level"]
-transform = Transform3D(8.947154, 0, 0, 0, 8.947154, 0, 0, 0, 8.947154, 676.4678, -1064.0336, 2294.8245)
+transform = Transform3D(8.947154, 0, 0, 0, 8.947154, 0, 0, 0, 8.947154, 1625.6754, -1064.0336, 2294.8245)
 radius = 33.31741
 material = SubResource("StandardMaterial3D_ppgk2")
