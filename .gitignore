@@ -44,7 +44,6 @@ data_*/
 build/
 dist/
 exports/
-bin/
 
 
 # =========================
