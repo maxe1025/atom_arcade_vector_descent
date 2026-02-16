@@ -1,5 +1,17 @@
 extends CharacterBody3D
 
+# Define the buttons for bitwise AND operation.
+# This is necessary because of multiple button presses at the same time.
+# E.g. "A" and "B" together .get_buttons() will return 3.
+# Button "A" pressed will return 1 and "B" pressed will return 2.
+const BTN_A     = 0b00000001  # Bit 0
+const BTN_B     = 0b00000010  # Bit 1
+const BTN_X     = 0b00000100  # Bit 2
+const BTN_Y     = 0b00001000  # Bit 3
+const BTN_LB    = 0b00010000  # Bit 4
+const BTN_RB    = 0b00100000  # Bit 5
+const BTN_START = 0b01000000  # Bit 6
+
 var controller: Controller
 const SPEED := 15.0
 
@@ -23,11 +35,12 @@ func _ready():
 	else:
 		push_error("ControllerHost not found in the current scene!")
 
-# Movement is implemented here
+# Movement and button handling is implemented here
 func _physics_process(delta):
 	if controller:
 		var raw_x = controller.get_axis_x()
 		var raw_y = controller.get_axis_y()
+		var buttons = controller.get_buttons()
 
 		var move_x = ((raw_x - 512.0) / 512.0)
 		var move_z = ((raw_y - 512.0) / 512.0)
@@ -64,10 +77,10 @@ func _physics_process(delta):
 
 		move_and_slide()
 
-	fire_timer -= delta
-	if controller and controller.get_buttons() == 1 and fire_timer <= 0:
-		fire()
-		fire_timer = fire_cooldown
+		fire_timer -= delta
+		if (buttons & BTN_A) != 0 and fire_timer <= 0:
+			fire()
+			fire_timer = fire_cooldown
 
 
 func fire():
