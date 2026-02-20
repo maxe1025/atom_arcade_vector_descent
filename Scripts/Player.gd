@@ -16,6 +16,9 @@ var controller: Controller
 var display: Display
 
 const SPEED := 15.0
+const MAX_HP := 10
+var current_hp := MAX_HP
+var points := 0
 
 const ACCELERATION := 20.0
 const DECELERATION := 15.0
@@ -24,10 +27,15 @@ const TILT_SPEED := 5.0
 
 var fire_cooldown := 0.6
 var fire_timer := 0.0
+var damage_cooldown := 1.0
+var damage_timer := 0.0
 
 var target_velocity := Vector3.ZERO
 var current_tilt := Vector3.ZERO
 
+var display_mode := "hp"
+var display_switch_timer := 0.0
+const DISPLAY_SWITCH_INTERVAL := 2.0
 
 func _ready():
 	var controller_host = get_tree().get_current_scene().get_node("ControllerHost")
@@ -43,8 +51,21 @@ func _ready():
 	else:
 		push_error("DisplayHost not found in the current scene!")
 
+
 # Movement and button handling is implemented here
 func _physics_process(delta):
+	if current_hp <= 0:
+		return
+	
+	fire_timer -= delta
+	damage_timer -= delta
+	display_switch_timer -= delta
+	
+	if display_switch_timer <= 0:
+		display_switch_timer = DISPLAY_SWITCH_INTERVAL
+		display_mode = "points" if display_mode == "hp" else "hp"
+		update_display()
+	
 	if controller:
 		var raw_x = controller.get_axis_x()
 		var raw_y = controller.get_axis_y()
@@ -85,7 +106,6 @@ func _physics_process(delta):
 
 		move_and_slide()
 
-		fire_timer -= delta
 		if (buttons & BTN_A) != 0 and fire_timer <= 0:
 			fire()
 			fire_timer = fire_cooldown
@@ -95,5 +115,69 @@ func fire():
 	var projectile = preload("res://assets/3d/player/projectile.tscn").instantiate()
 	get_tree().current_scene.add_child(projectile)
 	projectile.global_transform.origin = global_transform.origin - global_transform.basis.z
+	
+	if projectile.has_signal("asteroid_destroyed"):
+		projectile.asteroid_destroyed.connect(_on_asteroid_destroyed)
+
+
+func _on_asteroid_destroyed():
+	add_points(10)
+
+
+func add_points(amount: int):
+	points += amount
+	
 	if display:
-		display.show_text("Shots fired!")
+		display.show_text("P: " + str(points))
+		display_mode = "points"
+		display_switch_timer = DISPLAY_SWITCH_INTERVAL
+
+
+func take_damage(amount: int):
+	if damage_timer > 0:
+		return
+	
+	current_hp -= amount
+	damage_timer = damage_cooldown
+	
+	if display:
+		if current_hp <= 0:
+			on_death()
+		else:
+			display.show_text("HIT! HP: " + str(current_hp))
+			display.set_brightness(15)
+			await get_tree().create_timer(0.3).timeout
+			display.set_brightness(8)
+			
+			display_mode = "hp"
+			display_switch_timer = DISPLAY_SWITCH_INTERVAL
+
+
+func on_death():
+	if display:
+		display.set_brightness(15)
+		display.show_text("GAME OVER")
+		await get_tree().create_timer(2.0).timeout
+		display.show_text("FINAL SCORE: " + str(points))
+	
+	set_physics_process(false)
+	
+	await get_tree().create_timer(8.0).timeout
+	get_tree().reload_current_scene()
+
+
+func update_display():
+	if not display:
+		return
+	
+	if display_mode == "hp":
+		display.show_text("HP: " + str(current_hp))
+	else:
+		display.show_text("P: " + str(points))
+
+
+func _on_collision_area_area_entered(area: Area3D) -> void:
+	var other = area.get_parent()
+	if other.is_in_group("asteroid"):
+		take_damage(1)
+		other.queue_free()

@@ -17,3 +17,10 @@ shape = SubResource("BoxShape3D_vcpcc")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.7633678, 0.64596415, 0, -0.64596415, 0.7633678, 0, 6.224218, 5.5922136)
+
+[node name="CollisionArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="CollisionArea"]
+shape = SubResource("BoxShape3D_vcpcc")
+
+[connection signal="area_entered" from="CollisionArea" to="." method="_on_collision_area_area_entered"]
