@@ -5,7 +5,24 @@ var controller: Controller
 
 func _ready():
 	controller = Controller.new()
-	controller.start("COM3") #/dev/ttyACM0 on Linux
+	var port = get_serial_port()
+	print("Attempting to connect to controller on port: ", port)
+	controller.start(port)
+
+
+func get_serial_port() -> String:
+	var os_name = OS.get_name()
+	
+	match os_name:
+		"Windows":
+			return "COM3"
+		"Linux", "FreeBSD", "NetBSD", "OpenBSD", "BSD":
+			return "/dev/ttyACM0"
+		"macOS":
+			return "/dev/tty.usbmodem"
+		_:
+			push_warning("Unknown OS: " + os_name + ", defaulting to Linux port")
+			return "/dev/ttyACM0"
 
 
 func _process(_delta: float) -> void:
