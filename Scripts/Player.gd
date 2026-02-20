@@ -13,6 +13,8 @@ const BTN_RB    = 0b00100000  # Bit 5
 const BTN_START = 0b01000000  # Bit 6
 
 var controller: Controller
+var display: Display
+
 const SPEED := 15.0
 
 const ACCELERATION := 20.0
@@ -29,11 +31,17 @@ var current_tilt := Vector3.ZERO
 
 func _ready():
 	var controller_host = get_tree().get_current_scene().get_node("ControllerHost")
+	var display_host = get_tree().get_current_scene().get_node("DisplayHost")
 
 	if controller_host:
 		controller = controller_host.controller
 	else:
 		push_error("ControllerHost not found in the current scene!")
+	
+	if display_host:
+		display = display_host.display
+	else:
+		push_error("DisplayHost not found in the current scene!")
 
 # Movement and button handling is implemented here
 func _physics_process(delta):
@@ -87,3 +95,5 @@ func fire():
 	var projectile = preload("res://assets/3d/player/projectile.tscn").instantiate()
 	get_tree().current_scene.add_child(projectile)
 	projectile.global_transform.origin = global_transform.origin - global_transform.basis.z
+	if display:
+		display.show_text("Shots fired!")

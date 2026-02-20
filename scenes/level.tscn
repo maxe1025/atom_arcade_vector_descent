@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://dad7bc4523ujr"]
+[gd_scene load_steps=12 format=3 uid="uid://dad7bc4523ujr"]
 
 [ext_resource type="Texture2D" uid="uid://c06kwc0lcjyfd" path="res://assets/2d/panorama_image.png" id="1_mx8sn"]
 [ext_resource type="Script" uid="uid://dge8lhxk1ma4w" path="res://scripts/ControllerHost.gd" id="1_w8frs"]
+[ext_resource type="Script" uid="uid://b1ksvu4tncq1i" path="res://scripts/DisplayHost.gd" id="3_2r41h"]
 [ext_resource type="Script" uid="uid://c6crsterbybxf" path="res://scripts/AsteroidSpawner.gd" id="3_ppgk2"]
 [ext_resource type="PackedScene" uid="uid://beym5n32offon" path="res://assets/3d/player/player.tscn" id="3_w8frs"]
 
@@ -40,6 +41,9 @@ environment = SubResource("Environment_3l1mj")
 
 [node name="ControllerHost" type="Node" parent="."]
 script = ExtResource("1_w8frs")
+
+[node name="DisplayHost" type="Node" parent="."]
+script = ExtResource("3_2r41h")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.59293747, 0.6933817, -0.40944713, -0.626765, -0.078163296, 0.775278, 0.5055598, 0.7163185, 0.4809336, 0, 0, -0.017391205)
