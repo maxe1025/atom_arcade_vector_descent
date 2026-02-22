@@ -18,7 +18,7 @@ var btn_a_was_pressed := false
 var btn_start_was_pressed := false
 var input_cooldown := 0.2
 var input_timer := 0.0
-var open_cooldown := 0.3  # Ignore input briefly after opening
+var open_cooldown := 0.3
 var open_timer := 0.0
 
 
@@ -32,16 +32,16 @@ func _ready():
 	quit_button.pressed.connect(func(): emit_signal("quit_requested"))
 	resume_button.grab_focus()
 
-	open_timer = open_cooldown  # Start with cooldown active
+	open_timer = open_cooldown
 	_update_selection()
 
 
 func _process(delta):
 	open_timer -= delta
 	if open_timer > 0:
-		btn_a_was_pressed = true   # Prevent A from firing immediately
-		btn_start_was_pressed = true  # Prevent START from firing immediately
-		return  # Ignore all input until cooldown expires
+		btn_a_was_pressed = true
+		btn_start_was_pressed = true
+		return
 
 	if not controller:
 		return
