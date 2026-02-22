@@ -37,7 +37,16 @@ var display_mode := "hp"
 var display_switch_timer := 0.0
 const DISPLAY_SWITCH_INTERVAL := 2.0
 
+var pause_menu_scene := preload("res://scenes/pause_menu.tscn")
+var pause_menu: CanvasLayer = null
+var is_paused := false
+var btn_start_was_pressed := false
+
+
 func _ready():
+	add_to_group("player")
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	
 	var controller_host = get_tree().get_current_scene().get_node("ControllerHost")
 	var display_host = get_tree().get_current_scene().get_node("DisplayHost")
 
@@ -54,7 +63,17 @@ func _ready():
 
 # Movement and button handling is implemented here
 func _physics_process(delta):
-	if current_hp <= 0:
+	if controller:
+		var buttons = controller.get_buttons()
+		var btn_start_pressed = (buttons & BTN_START) != 0
+		if btn_start_pressed and not btn_start_was_pressed:
+			if is_paused:
+				_resume()
+			else:
+				_pause()
+		btn_start_was_pressed = btn_start_pressed
+
+	if is_paused or current_hp <= 0:
 		return
 	
 	fire_timer -= delta
@@ -181,3 +200,36 @@ func _on_collision_area_area_entered(area: Area3D) -> void:
 	if other.is_in_group("asteroid"):
 		take_damage(1)
 		other.queue_free()
+
+
+func _pause():
+	is_paused = true
+	get_tree().paused = true
+	pause_menu = pause_menu_scene.instantiate()
+	pause_menu.process_mode = Node.PROCESS_MODE_ALWAYS
+	get_tree().current_scene.add_child(pause_menu)
+	pause_menu.resume_requested.connect(_resume)
+	pause_menu.quit_requested.connect(_quit_to_launcher)
+
+
+func _resume():
+	is_paused = false
+	get_tree().paused = false
+	if pause_menu:
+		pause_menu.queue_free()
+		pause_menu = null
+
+
+func _quit_to_launcher():
+	get_tree().paused = false
+	_launch_launcher()
+	get_tree().quit()
+
+
+func _launch_launcher():
+	var launcher_path: String
+	if OS.get_name() == "Windows":
+		launcher_path = OS.get_executable_path().get_base_dir().path_join("..\\atom_arcade_launcher\\atom_arcade_launcher.exe")
+	else:
+		launcher_path = OS.get_executable_path().get_base_dir().path_join("../atom_arcade_launcher/atom_arcade_launcher")
+	OS.create_process(launcher_path, [])
