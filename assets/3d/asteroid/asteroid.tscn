@@ -1,20 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://bt4iqrkraaa1u"]
+[gd_scene load_steps=4 format=3 uid="uid://bt4iqrkraaa1u"]
 
 [ext_resource type="Script" uid="uid://ckmotelrikj7g" path="res://scripts/Asteroid.gd" id="1_or30n"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_q160v"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e0e3k"]
-albedo_color = Color(0.3347436, 0.33474356, 0.33474356, 1)
+[ext_resource type="PackedScene" uid="uid://bp88xc7sbgo66" path="res://assets/3d/asteroid/Vector_Descent.glb" id="2_jt5xa"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_jnrf0"]
 
 [node name="Asteroid" type="Node3D"]
 script = ExtResource("1_or30n")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_q160v")
-surface_material_override/0 = SubResource("StandardMaterial3D_e0e3k")
+[node name="Vector_Descent" parent="." instance=ExtResource("2_jt5xa")]
+transform = Transform3D(0.457, 0, 0, 0, 0.457, 0, 0, 0, 0.457, 0, 0, 0)
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_mask = 2

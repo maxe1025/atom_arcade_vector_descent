@@ -36,4 +36,9 @@ func spawn_asteroid():
 		origin.z + randf_range(spawn_distance_min, spawn_distance_max)
 	)
 	asteroid.scale = Vector3.ONE * randf_range(0.5, 2.0)
+	asteroid.rotation = Vector3(
+		randf_range(0, TAU),
+		randf_range(0, TAU),
+		randf_range(0, TAU)
+	)
 	get_parent().add_child(asteroid)

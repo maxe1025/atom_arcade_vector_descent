@@ -16,7 +16,7 @@ const BTN_START = 0b01000000
 var controller: Controller
 var btn_a_was_pressed := false
 var btn_start_was_pressed := false
-var input_cooldown := 0.2
+var input_cooldown := 0.4
 var input_timer := 0.0
 var open_cooldown := 0.3
 var open_timer := 0.0
@@ -53,11 +53,11 @@ func _process(delta):
 
 	if input_timer <= 0:
 		var move_y = (raw_y - 512.0) / 512.0
-		if move_y > 0.5:
+		if move_y > 0.7:
 			selected_index = (selected_index - 1 + BUTTONS_COUNT) % BUTTONS_COUNT
 			_update_selection()
 			input_timer = input_cooldown
-		elif move_y < -0.5:
+		elif move_y < -0.7:
 			selected_index = (selected_index + 1) % BUTTONS_COUNT
 			_update_selection()
 			input_timer = input_cooldown
