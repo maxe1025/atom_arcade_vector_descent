@@ -95,3 +95,6 @@ exports/
 # =========================
 **/.godot/
 **/.import/
+
+
+serial_config.json
