@@ -229,7 +229,11 @@ func _quit_to_launcher():
 func _launch_launcher():
 	var launcher_path: String
 	if OS.get_name() == "Windows":
-		launcher_path = OS.get_executable_path().get_base_dir().path_join("..\\atom_arcade_launcher\\atom_arcade_launcher.exe")
+		launcher_path = OS.get_executable_path().get_base_dir().path_join("..\\..\\launcher.exe")
 	else:
-		launcher_path = OS.get_executable_path().get_base_dir().path_join("../atom_arcade_launcher/atom_arcade_launcher")
-	OS.create_process(launcher_path, [])
+		launcher_path = OS.get_executable_path().get_base_dir().path_join("../../launcher.arm64")
+	
+	if FileAccess.file_exists(launcher_path):
+		OS.create_process(launcher_path, [])
+	else:
+		push_error("Launcher not found at: " + launcher_path)

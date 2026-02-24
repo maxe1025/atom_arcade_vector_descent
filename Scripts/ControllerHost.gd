@@ -15,9 +15,9 @@ func get_serial_port() -> String:
 	
 	match os_name:
 		"Windows":
-			return "COM3"
+			return "COM6"
 		"Linux", "FreeBSD", "NetBSD", "OpenBSD", "BSD":
-			return "/dev/ttyACM0"
+			return "/dev/ttyACM1"
 		"macOS":
 			return "/dev/tty.usbmodem"
 		_:

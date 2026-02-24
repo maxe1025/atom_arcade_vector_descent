@@ -29,7 +29,7 @@ func get_serial_port() -> String:
 		"Windows":
 			return "COM7"
 		"Linux", "FreeBSD", "NetBSD", "OpenBSD", "BSD":
-			return "/dev/ttyUSB0"
+			return "/dev/ttyACM0"
 		"macOS":
 			return "/dev/tty.usbmodem2"
 		_:
