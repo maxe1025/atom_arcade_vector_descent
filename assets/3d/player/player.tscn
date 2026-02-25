@@ -1,15 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://beym5n32offon"]
+[gd_scene load_steps=5 format=3 uid="uid://beym5n32offon"]
 
 [ext_resource type="Script" uid="uid://dtynu78iv8qao" path="res://scripts/Player.gd" id="1_3dgm4"]
+[ext_resource type="PackedScene" uid="uid://cmcnw72pm04ds" path="res://assets/3d/player/Ship.glb" id="2_q3bys"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_udvkf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vcpcc"]
+size = Vector3(3.180664, 1, 1)
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_3dgm4")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("BoxMesh_udvkf")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -22,5 +25,8 @@ transform = Transform3D(1, 0, 0, 0, 0.7633678, 0.64596415, 0, -0.64596415, 0.763
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="CollisionArea"]
 shape = SubResource("BoxShape3D_vcpcc")
+
+[node name="Ship2" parent="." instance=ExtResource("2_q3bys")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
 [connection signal="area_entered" from="CollisionArea" to="." method="_on_collision_area_area_entered"]
