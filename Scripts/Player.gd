@@ -42,11 +42,31 @@ var pause_menu: CanvasLayer = null
 var is_paused := false
 var btn_start_was_pressed := false
 
+var music_player: AudioStreamPlayer
+var shoot_player: AudioStreamPlayer
+var death_player: AudioStreamPlayer
+
 
 func _ready():
 	add_to_group("player")
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	
+
+	music_player = AudioStreamPlayer.new()
+	music_player.stream = load("res://assets/audio/BackgroundMusic.wav")
+	music_player.volume_db = -15.0
+	add_child(music_player)
+	music_player.finished.connect(_on_music_finished)
+	music_player.play()
+
+	shoot_player = AudioStreamPlayer.new()
+	shoot_player.stream = load("res://assets/audio/Shoot.wav")
+	add_child(shoot_player)
+
+	death_player = AudioStreamPlayer.new()
+	death_player.stream = load("res://assets/audio/YouLose.wav")
+	death_player.volume_db = 0.0
+	add_child(death_player)
+
 	var controller_host = get_tree().get_current_scene().get_node("ControllerHost")
 	var display_host = get_tree().get_current_scene().get_node("DisplayHost")
 
@@ -134,7 +154,10 @@ func fire():
 	var projectile = preload("res://assets/3d/player/projectile.tscn").instantiate()
 	get_tree().current_scene.add_child(projectile)
 	projectile.global_transform.origin = global_transform.origin - global_transform.basis.z
-	
+
+	if shoot_player:
+		shoot_player.play()
+
 	if projectile.has_signal("asteroid_destroyed"):
 		projectile.asteroid_destroyed.connect(_on_asteroid_destroyed)
 
@@ -173,12 +196,17 @@ func take_damage(amount: int):
 
 
 func on_death():
+	if music_player:
+		music_player.stop()
+	if death_player:
+		death_player.play()
+
 	if display:
 		display.set_brightness(15)
 		display.show_text("GAME OVER")
 		await get_tree().create_timer(2.0).timeout
 		display.show_text("FINAL SCORE: " + str(points))
-	
+
 	set_physics_process(false)
 	
 	await get_tree().create_timer(8.0).timeout
@@ -237,3 +265,6 @@ func _launch_launcher():
 		OS.create_process(launcher_path, [])
 	else:
 		push_error("Launcher not found at: " + launcher_path)
+
+func _on_music_finished():
+	music_player.play()

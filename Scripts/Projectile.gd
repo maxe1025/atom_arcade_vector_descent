@@ -20,4 +20,13 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 	if other.is_in_group("asteroid"):
 		other.queue_free()
 		asteroid_destroyed.emit()
+
+		# Play destroy sound at scene level so it survives queue_free
+		var destroy_player := AudioStreamPlayer.new()
+		destroy_player.stream = load("res://assets/audio/Destroy.wav")
+		destroy_player.volume_db = -3.0
+		get_tree().current_scene.add_child(destroy_player)
+		destroy_player.finished.connect(destroy_player.queue_free)
+		destroy_player.play()
+
 		queue_free()

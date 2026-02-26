@@ -1,16 +1,19 @@
-[gd_scene load_steps=12 format=3 uid="uid://dad7bc4523ujr"]
+[gd_scene load_steps=11 format=3 uid="uid://dad7bc4523ujr"]
 
-[ext_resource type="Texture2D" uid="uid://c06kwc0lcjyfd" path="res://assets/2d/panorama_image.png" id="1_mx8sn"]
 [ext_resource type="Script" uid="uid://dge8lhxk1ma4w" path="res://scripts/ControllerHost.gd" id="1_w8frs"]
 [ext_resource type="Script" uid="uid://b1ksvu4tncq1i" path="res://scripts/DisplayHost.gd" id="3_2r41h"]
 [ext_resource type="Script" uid="uid://c6crsterbybxf" path="res://scripts/AsteroidSpawner.gd" id="3_ppgk2"]
 [ext_resource type="PackedScene" uid="uid://beym5n32offon" path="res://assets/3d/player/player.tscn" id="3_w8frs"]
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ppgk2"]
-panorama = ExtResource("1_mx8sn")
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mx8sn"]
+sky_top_color = Color(0.11011868, 0.016143601, 0.17891613, 1)
+sky_horizon_color = Color(0.45202726, 0.06420403, 0.99999994, 1)
+sky_cover_modulate = Color(0.025942776, 0.025942776, 0.025942776, 1)
+ground_bottom_color = Color(0.01451342, 0.012092311, 0.073350094, 1)
+ground_horizon_color = Color(0.41802934, 0.0015612653, 0.646152, 1)
 
 [sub_resource type="Sky" id="Sky_5ot4y"]
-sky_material = SubResource("PanoramaSkyMaterial_ppgk2")
+sky_material = SubResource("ProceduralSkyMaterial_mx8sn")
 
 [sub_resource type="Environment" id="Environment_3l1mj"]
 background_mode = 2
@@ -48,7 +51,7 @@ script = ExtResource("3_2r41h")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.59293747, 0.6933817, -0.40944713, -0.626765, -0.078163296, 0.775278, 0.5055598, 0.7163185, 0.4809336, 0, 0, -0.017391205)
 light_color = Color(0.98536056, 0.89774525, 0.9999997, 1)
-light_energy = 6.903
+light_energy = 2.332
 
 [node name="AsteroidSpawner" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.008272717, 0.9999658, 0, -0.9999658, -0.008272717, 0, 0, -8.378998)
